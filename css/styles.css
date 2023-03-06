@@ -13,7 +13,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: gray;
+    background-color: lightgrey;
     height: 100vh;
 }
 
@@ -22,7 +22,7 @@ h1 {
 }
 
 .die-ph {
-    border: 0.5px yellow solid;
+    border: 0.5px purple solid;
     height: 3rem;
     width: 3rem;
     margin: 0.5em;
@@ -63,3 +63,19 @@ h1 {
     height: 4em;
     width: 4em;
 }
+
+.scoring-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 75%;
+}
+
+.player-card {
+    border: 2px green solid;
+    width: 30%;
+    height: 4em;
+    margin: 2em 0;
+    text-align: center;
+}
+

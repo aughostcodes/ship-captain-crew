@@ -1,10 +1,15 @@
 'use strict';
 
+// DOM VARIABLES //
+
 const completedArea = document.querySelector('.completed-area');
 const rollingArea = document.querySelector('.rolling-area');
 const ship = document.getElementById('ship');
 const captain = document.getElementById('captain');
 const crew = document.getElementById('crew');
+const rollButton = document.getElementById('roll-button');
+
+// MANIPULATED VARIABLES //
 
 let rollArray = [];
 let diceRemaining = 5;
@@ -14,9 +19,10 @@ let shipTrue = false;
 let captainTrue = false;
 let crewTrue = false;
 
+// ROLLING THE DICE //
+
 const rollDie = () => {
     let roll = Math.floor(Math.random() * 6) + 1;
-    // console.log(roll);
     return roll;
 }
 
@@ -25,7 +31,10 @@ const rollAllFiveDice = () => {
         rollArray.push(rollDie());
     }
     console.log(rollArray);
+    checkForSCC();
 }
+
+// CHECKING THE DICE FOR VALUES //
 
 const checkForShip = () => {
     if (rollArray.includes(6)) {
@@ -63,7 +72,14 @@ const checkForSCC = () => {
         // tally up total of last two dice and put total in cargo hold
         console.log('GAME IS OVER');
     }
+    rollArray = [];
 }
+
+const changePlaceholderBgs = () => {
+    // rollArray.forEach()
+}
+
+// INCOMPLETE THOUGHTS //
 
 const rollRemainingDice = () => {
     if (shipTrue) {
@@ -82,3 +98,7 @@ function updateRollArea() {
         shipTrue = true;
     }
 }
+
+// EVENT LISTENERS //
+
+rollButton.addEventListener('click', rollAllFiveDice);
