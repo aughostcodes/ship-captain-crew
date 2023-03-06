@@ -8,6 +8,8 @@ const ship = document.getElementById('ship');
 const captain = document.getElementById('captain');
 const crew = document.getElementById('crew');
 const rollButton = document.getElementById('roll-button');
+const rerollButton = document.getElementById('reroll-button');
+const passButton = document.getElementById('pass-button');
 
 // MANIPULATED VARIABLES //
 
@@ -27,11 +29,58 @@ const rollDie = () => {
 }
 
 const rollAllFiveDice = () => {
-    for (let i = 0; i < 5; i++) {
-        rollArray.push(rollDie());
+    if (turnsRemaining === 3 || (!shipTrue)) {
+        for (let i = 0; i < 5; i++) {
+            rollArray.push(rollDie());
+        }
+        console.log(rollArray);
+        checkForSCC();
     }
-    console.log(rollArray);
+    turnsRemaining--;
+
+    addCargo();
+}
+
+const rollRemainingDice = () => {
+    console.log('rolling remaining dice');
+    // if (turnsRemaining < 3 && turnsRemaining >= 0) {
+    if (crewTrue) {
+        console.log('You found the ship, captain, and crew');
+        for (let i = 0; i < 2; i++) {
+            rollArray.push(rollDie());
+        }
+        console.log(rollArray);
+    } else if (captainTrue) {
+        console.log('You found both the ship and the captain');
+        for (let i = 0; i < 3; i++) {
+            rollArray.push(rollDie());
+        }
+        console.log(rollArray);
+    } else if (shipTrue) {
+        console.log('You found the ship');
+        for (let i = 0; i < 4; i++) {
+            rollArray.push(rollDie());
+        }
+        console.log(rollArray);
+    } else {
+        console.log('testing here');
+    }
+    // }
+    turnsRemaining--;
     checkForSCC();
+    addCargo();
+    rollArray = [];
+}
+
+const addCargo = () => {
+    let sum = 0;
+    if (turnsRemaining === 0) {
+        rollArray.forEach(num => {
+            sum += num;
+        });
+        return sum;
+    }
+    console.log(sum);
 }
 
 // CHECKING THE DICE FOR VALUES //
@@ -70,8 +119,9 @@ const checkForSCC = () => {
     turnsRemaining--;
     if (turnsRemaining === 0) {
         // tally up total of last two dice and put total in cargo hold
-        console.log('GAME IS OVER');
+        console.log('TURN IS OVER');
     }
+    addCargo();
     rollArray = [];
 }
 
@@ -80,15 +130,6 @@ const changePlaceholderBgs = () => {
 }
 
 // INCOMPLETE THOUGHTS //
-
-const rollRemainingDice = () => {
-    if (shipTrue) {
-        console.log('You found the ship');
-        for (let i = 0; i < 4; i++) {
-            console.log(rollDie());
-        }
-    }
-}
 
 function updateRollArea() {
     if (rollDie() === 6) {
@@ -102,3 +143,5 @@ function updateRollArea() {
 // EVENT LISTENERS //
 
 rollButton.addEventListener('click', rollAllFiveDice);
+rerollButton.addEventListener('click', rollRemainingDice);
+// rollButton.addEventListener('click', rollAllFiveDice);
